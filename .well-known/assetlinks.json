@@ -5,8 +5,7 @@
       "namespace": "android_app",
       "package_name": "com.autoreel.autoreel",
       "sha256_cert_fingerprints": [
-        "REPLACE_WITH_DEBUG_SHA256",
-        "REPLACE_WITH_RELEASE_SHA256"
+        "72:CE:AE:31:BC:4C:AE:4E:12:0B:E2:A4:64:87:76:8B:13:FE:CC:2B:AC:1C:4C:B8:46:A4:A7:1D:24:95:C1:E6"
       ]
     }
   }
