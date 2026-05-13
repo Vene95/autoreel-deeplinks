@@ -1,0 +1,11 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "TEAMID_HERE.com.autoreel.autoreel",
+        "paths": ["/car/*", "/dealer/*", "/saved", "/profile/*"]
+      }
+    ]
+  }
+}
