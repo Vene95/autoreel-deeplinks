@@ -3,137 +3,123 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <title>AutoReel — Descoperă mașini</title>
-  <meta name="description" content="Nu mai cauți mașini. Le descoperi. Marketplace video-first pentru mașini second-hand în România.">
+  <title>AutoReel — Marketplace de mașini din România</title>
+  <meta name="description" content="AutoReel este marketplace-ul mobil pentru mașini second-hand din România. Descoperă, salvează și contactează vânzători printr-un feed vertical, photos-first. Disponibil pe Android.">
+  <meta name="keywords" content="mașini second hand, anunțuri auto, marketplace auto România, vânzare mașini, autoturisme, AutoReel">
   <meta name="theme-color" content="#FF6A00">
+  <link rel="canonical" href="https://autoreel.ro/">
 
-  <!-- Open Graph (share preview pe WhatsApp / Facebook / iMessage) -->
+  <!-- Open Graph -->
   <meta property="og:title" content="AutoReel — Descoperă mașini">
-  <meta property="og:description" content="Nu mai cauți mașini. Le descoperi.">
+  <meta property="og:description" content="Nu mai cauți mașini. Le descoperi. Marketplace photos-first pentru mașini second-hand în România.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://autoreel.ro">
+  <meta property="og:url" content="https://autoreel.ro/">
   <meta property="og:image" content="https://autoreel.ro/og-image.png">
+  <meta property="og:locale" content="ro_RO">
+  <meta property="og:site_name" content="AutoReel">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AutoReel — Descoperă mașini">
+  <meta name="twitter:description" content="Marketplace photos-first pentru mașini second-hand în România.">
 
   <!-- Apple smart banner — deschide app-ul dacă e instalat -->
   <meta name="apple-itunes-app" content="app-id=YOUR_APPLE_APP_ID">
 
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
-      background: #0E0E14;
-      color: #fff;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-      background-image:
-        radial-gradient(circle at 20% 30%, rgba(255, 106, 0, 0.3) 0%, transparent 50%),
-        radial-gradient(circle at 80% 70%, rgba(255, 122, 31, 0.2) 0%, transparent 50%);
+  <!-- Structured data: Organization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "AutoReel",
+    "url": "https://autoreel.ro",
+    "logo": "https://autoreel.ro/og-image.png",
+    "description": "Marketplace mobil de mașini second-hand din România.",
+    "areaServed": {
+      "@type": "Country",
+      "name": "Romania"
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "email": "vvvaidevelopment@gmail.com",
+      "contactType": "Customer Service",
+      "areaServed": "RO",
+      "availableLanguage": "Romanian"
     }
-    .container {
-      max-width: 400px;
-      width: 100%;
-      text-align: center;
-    }
-    .logo {
-      width: 96px;
-      height: 96px;
-      margin: 0 auto 24px;
-      background: linear-gradient(135deg, #FFB070, #FF7A1F 50%, #D63E00);
-      border-radius: 22px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 12px 32px rgba(255, 106, 0, 0.4);
-    }
-    .logo svg { width: 64px; height: 64px; }
-    h1 {
-      font-size: 32px;
-      font-weight: 900;
-      letter-spacing: -1px;
-      margin-bottom: 8px;
-    }
-    .tagline {
-      color: rgba(255, 255, 255, 0.7);
-      font-size: 15px;
-      margin-bottom: 32px;
-      line-height: 1.5;
-    }
-    .buttons {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 14px 24px;
-      border-radius: 14px;
-      font-size: 15px;
-      font-weight: 700;
-      text-decoration: none;
-      transition: transform 0.15s, box-shadow 0.15s;
-    }
-    .btn:active { transform: scale(0.97); }
-    .btn-primary {
-      background: linear-gradient(135deg, #FF8A2C, #FF5500);
-      color: #fff;
-      box-shadow: 0 8px 20px rgba(255, 106, 0, 0.4);
-    }
-    .btn-secondary {
-      background: rgba(255, 255, 255, 0.08);
-      color: #fff;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-    }
-    .footer {
-      margin-top: 40px;
-      color: rgba(255, 255, 255, 0.4);
-      font-size: 12px;
-    }
-  </style>
+  }
+  </script>
+
+  <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-  <div class="container">
-    <div class="logo">
-      <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
-        <g fill="#FFFFFF">
-          <path fill-rule="evenodd" d="M 56 183 L 84 73 L 96 73 L 124 183 Z M 79 152 L 101 152 L 109 183 L 71 183 Z"/>
-          <rect x="138" y="73" width="22" height="110"/>
-          <path fill-rule="evenodd" d="M 160 73 L 180 73 C 202 73 202 138 180 138 L 160 138 Z M 160 91 L 176 91 C 188 91 188 120 176 120 L 160 120 Z"/>
-          <path d="M 160 138 L 180 138 L 202 183 L 182 183 Z"/>
-        </g>
-      </svg>
-    </div>
-    <h1>AutoReel</h1>
-    <p class="tagline">Nu mai cauți mașini.<br>Le descoperi.</p>
-    <div class="buttons">
-      <a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=com.autoreel.autoreel">
-        Descarcă pentru Android
+  <header class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand">
+        <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="navOrange" x1="0" y1="0" x2="256" y2="256" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#FFB070"/>
+              <stop offset="0.5" stop-color="#FF7A1F"/>
+              <stop offset="1" stop-color="#D63E00"/>
+            </linearGradient>
+          </defs>
+          <g fill="url(#navOrange)">
+            <path fill-rule="evenodd" d="M 43 183 L 105 73 L 119 183 Z M 81 155 L 93 155 L 97 183 L 65 183 Z"/>
+            <path fill-rule="evenodd" d="M 156 73 L 200 73 C 220 73 208 132 188 132 L 191 183 L 171 183 L 168 132 L 157 183 L 133 183 Z M 177 89 L 191 89 C 203 89 197 116 185 116 L 171 116 Z"/>
+          </g>
+        </svg>
+        AutoReel
       </a>
-      <a class="btn btn-secondary" href="https://apps.apple.com/app/idYOUR_APPLE_APP_ID">
-        Descarcă pentru iPhone
-      </a>
+      <nav class="nav-links">
+        <a href="/faq.html">FAQ</a>
+        <a href="/terms.html">Termeni</a>
+        <a href="/privacy.html">Confidențialitate</a>
+        <a href="/contact.html">Contact</a>
+      </nav>
     </div>
-    <p class="footer">© AutoReel · Made in Brașov 🇷🇴</p>
-  </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <div class="logo">
+        <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+          <g fill="#FFFFFF">
+            <path fill-rule="evenodd" d="M 43 183 L 105 73 L 119 183 Z M 81 155 L 93 155 L 97 183 L 65 183 Z"/>
+            <path fill-rule="evenodd" d="M 156 73 L 200 73 C 220 73 208 132 188 132 L 191 183 L 171 183 L 168 132 L 157 183 L 133 183 Z M 177 89 L 191 89 C 203 89 197 116 185 116 L 171 116 Z"/>
+          </g>
+        </svg>
+      </div>
+      <h1>AutoReel</h1>
+      <p class="tagline">Nu mai cauți mașini.<br>Le descoperi.</p>
+      <div class="cta-buttons">
+        <a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=com.autoreel.autoreel">
+          Descarcă pentru Android
+        </a>
+        <a class="btn btn-secondary" href="https://apps.apple.com/app/idYOUR_APPLE_APP_ID">
+          Descarcă pentru iPhone
+        </a>
+      </div>
+      <p class="text-muted" style="font-size:13px;margin-top:20px;">Marketplace photos-first pentru mașini second-hand în România.</p>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-links">
+      <a href="/">Acasă</a>
+      <a href="/faq.html">FAQ</a>
+      <a href="/terms.html">Termeni</a>
+      <a href="/privacy.html">Confidențialitate</a>
+      <a href="/contact.html">Contact</a>
+    </div>
+    <p>© AutoReel · Românească 🇷🇴</p>
+  </footer>
 
   <script>
-    // Smart redirect: dacă utilizatorul deschide un URL specific (ex: /car/123)
-    // dintr-un mesaj WhatsApp, încercăm să deschidem app-ul.
-    // Pe iOS și Android cu Universal/App Links configurate, OS-ul face asta
-    // automat înainte ca această pagină să se încarce. Codul de mai jos
-    // e fallback dacă app-ul nu e instalat.
-
+    // Deep link routing pentru utilizatorii care intră via share link.
+    // Pe iOS/Android cu app-ul instalat, OS-ul interceptează link-ul ÎNAINTE
+    // ca această pagină să se încarce. Codul de aici e fallback.
     const path = window.location.pathname;
-    const isCarLink = /^\/car\/[a-f0-9-]+/.test(path);
-    const isDealerLink = /^\/dealer\/[a-f0-9-]+/.test(path);
-
-    if (isCarLink || isDealerLink) {
-      // Sper că OS-ul a interceptat link-ul deja. Dacă suntem aici,
-      // înseamnă că app-ul nu e instalat → arătăm landing-ul cu CTA install.
+    if (/^\/car\/[a-f0-9-]+/.test(path) || /^\/dealer\/[a-f0-9-]+/.test(path)) {
       document.title = 'Deschide în AutoReel';
     }
   </script>
