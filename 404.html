@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>AutoReel — Deschide anunțul</title>
+  <meta name="description" content="Deschide anunțul în aplicația AutoReel sau în versiunea web.">
+  <meta name="theme-color" content="#FF6A00">
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="/styles.css">
+
+  <script>
+    // GitHub Pages servește acest fișier pentru orice path care nu există —
+    // în cazul nostru `/car/<uuid>` și `/dealer/<uuid>` (URL-uri de share
+    // generate de app). Pe Android cu App Links verificat, sistemul deschide
+    // direct app-ul nativ și pagina asta nu rulează. Pe desktop / iOS /
+    // Android fără app, redirecționăm la versiunea web (`app.autoreel.ro`).
+
+    (function () {
+      var path = window.location.pathname || '';
+      var search = window.location.search || '';
+      var hash = window.location.hash || '';
+
+      // UUID v4 pattern (cum sunt id-urile din Supabase).
+      var uuidRe = /^\/(?:car|dealer)\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}(?:\/[a-z]+)?$/i;
+
+      if (uuidRe.test(path)) {
+        // Path corect → redirect la web app. Folosim `replace` (nu `href`) ca
+        // să nu apară 404-ul în history (back ar duce util înapoi la pagina
+        // de unde a venit, nu la 404).
+        window.location.replace('https://app.autoreel.ro' + path + search + hash);
+        return;
+      }
+
+      // Path nerecunoscut → afișăm 404 normal (setăm un flag să nu se mai
+      // arate spinner-ul de redirect).
+      document.documentElement.dataset.state = 'notfound';
+    })();
+  </script>
+
+  <style>
+    /* Stat-uri specifice 404 — restul vine din /styles.css */
+    .redirect-loader {
+      max-width: 460px;
+      margin: 0 auto;
+      text-align: center;
+      padding: 64px 24px;
+    }
+    .redirect-loader .spinner {
+      display: inline-block;
+      width: 32px;
+      height: 32px;
+      border: 3px solid rgba(255, 122, 31, 0.2);
+      border-top-color: #FF7A1F;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-bottom: 16px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .redirect-loader h1 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .redirect-loader p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.6);
+    }
+    /* 404 generic (path nerecunoscut) */
+    [data-state="notfound"] .redirect-loader { display: none; }
+    [data-state="notfound"] .notfound-panel { display: block; }
+    .notfound-panel { display: none; padding-top: 24px; }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand">
+        <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="navOrange" x1="0" y1="0" x2="256" y2="256" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#FFB070"/>
+              <stop offset="0.5" stop-color="#FF7A1F"/>
+              <stop offset="1" stop-color="#D63E00"/>
+            </linearGradient>
+          </defs>
+          <g fill="url(#navOrange)">
+            <path fill-rule="evenodd" d="M 43 183 L 105 73 L 119 183 Z M 81 155 L 93 155 L 97 183 L 65 183 Z"/>
+            <path fill-rule="evenodd" d="M 156 73 L 200 73 C 220 73 208 132 188 132 L 191 183 L 171 183 L 168 132 L 157 183 L 133 183 Z M 177 89 L 191 89 C 203 89 197 116 185 116 L 171 116 Z"/>
+          </g>
+        </svg>
+        AutoReel
+      </a>
+      <nav class="nav-links">
+        <a href="/about.html">Despre</a>
+        <a href="/faq.html">FAQ</a>
+        <a href="/contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container-narrow">
+    <div class="redirect-loader">
+      <div class="spinner"></div>
+      <h1>Deschidem anunțul…</h1>
+      <p>Dacă pagina nu se încarcă, <a id="manual" href="https://app.autoreel.ro/">apasă aici</a>.</p>
+    </div>
+
+    <div class="notfound-panel">
+      <span class="updated">404</span>
+      <h1>Pagina nu există</h1>
+      <p>Link-ul pe care l-ai accesat nu duce nicăieri. Poate a fost șters anunțul, sau adresa e tastată greșit.</p>
+      <p style="margin-top: 28px;">
+        <a href="/" style="background: linear-gradient(135deg, #FF8A2C, #FF5500); color: white; padding: 14px 24px; border-radius: 14px; text-decoration: none; font-weight: 600; display: inline-block;">Înapoi la pagina principală</a>
+      </p>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-links">
+      <a href="/">Acasă</a>
+      <a href="/about.html">Despre</a>
+      <a href="/faq.html">FAQ</a>
+      <a href="/terms.html">Termeni</a>
+      <a href="/privacy.html">Confidențialitate</a>
+      <a href="/contact.html">Contact</a>
+    </div>
+    <p>© AutoReel · Românească 🇷🇴</p>
+  </footer>
+
+  <script>
+    // Setăm href-ul corect pe link-ul „manual" pentru cazul în care
+    // window.location.replace nu funcționează (rar — ex: ad blockers
+    // agresivi care intervin pe scripts).
+    (function () {
+      var manual = document.getElementById('manual');
+      if (manual) {
+        manual.href = 'https://app.autoreel.ro' + window.location.pathname +
+          window.location.search + window.location.hash;
+      }
+    })();
+  </script>
+</body>
+</html>
