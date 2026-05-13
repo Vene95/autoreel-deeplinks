@@ -4,12 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>AutoReel — Marketplace de mașini din România</title>
-  <meta name="description" content="AutoReel este marketplace-ul mobil pentru mașini second-hand din România. Descoperă, salvează și contactează vânzători printr-un feed vertical, photos-first. Disponibil pe Android.">
+  <meta name="description" content="AutoReel este marketplace-ul mobil pentru mașini second-hand din România. Descoperă, salvează și contactează vânzători printr-un feed vertical, photos-first. Lansare în curând pe Android și iOS.">
   <meta name="keywords" content="mașini second hand, anunțuri auto, marketplace auto România, vânzare mașini, autoturisme, AutoReel">
   <meta name="theme-color" content="#FF6A00">
   <link rel="canonical" href="https://autoreel.ro/">
 
-  <!-- Open Graph -->
   <meta property="og:title" content="AutoReel — Descoperă mașini">
   <meta property="og:description" content="Nu mai cauți mașini. Le descoperi. Marketplace photos-first pentru mașini second-hand în România.">
   <meta property="og:type" content="website">
@@ -18,15 +17,10 @@
   <meta property="og:locale" content="ro_RO">
   <meta property="og:site_name" content="AutoReel">
 
-  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="AutoReel — Descoperă mașini">
   <meta name="twitter:description" content="Marketplace photos-first pentru mașini second-hand în România.">
 
-  <!-- Apple smart banner — deschide app-ul dacă e instalat -->
-  <meta name="apple-itunes-app" content="app-id=YOUR_APPLE_APP_ID">
-
-  <!-- Structured data: Organization -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -35,10 +29,7 @@
     "url": "https://autoreel.ro",
     "logo": "https://autoreel.ro/og-image.png",
     "description": "Marketplace mobil de mașini second-hand din România.",
-    "areaServed": {
-      "@type": "Country",
-      "name": "Romania"
-    },
+    "areaServed": { "@type": "Country", "name": "Romania" },
     "contactPoint": {
       "@type": "ContactPoint",
       "email": "vvvaidevelopment@gmail.com",
@@ -50,6 +41,149 @@
   </script>
 
   <link rel="stylesheet" href="/styles.css">
+
+  <style>
+    /* Stiluri specifice landing-ului — hero, form, beta section */
+    .hero {
+      min-height: auto;
+      padding: 80px 24px 60px;
+    }
+    .hero-content {
+      max-width: 540px;
+    }
+    .hero h1 {
+      font-size: 46px;
+    }
+    .badge-pre {
+      display: inline-block;
+      background: rgba(255, 106, 0, 0.15);
+      border: 1px solid rgba(255, 106, 0, 0.4);
+      color: #FFB070;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      margin-bottom: 18px;
+      text-transform: uppercase;
+    }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      max-width: 720px;
+      margin: 36px auto 0;
+      padding: 0 24px;
+    }
+    @media (max-width: 640px) {
+      .features { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 36px; }
+    }
+    .feature {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 18px;
+      text-align: left;
+    }
+    .feature-icon {
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+    .feature h3 {
+      font-size: 15px;
+      margin-top: 0;
+      margin-bottom: 4px;
+      color: #FFB070;
+    }
+    .feature p {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 0;
+    }
+    .form-section {
+      max-width: 540px;
+      margin: 60px auto 0;
+      padding: 0 24px;
+    }
+    .form-section h2 {
+      color: #fff;
+      font-size: 20px;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    .form-section .sub {
+      color: rgba(255, 255, 255, 0.6);
+      text-align: center;
+      font-size: 14px;
+      margin-bottom: 18px;
+    }
+    .signup-form {
+      display: flex;
+      gap: 8px;
+      flex-direction: column;
+    }
+    @media (min-width: 540px) {
+      .signup-form.inline { flex-direction: row; }
+      .signup-form.inline input { flex: 1; }
+    }
+    .signup-form input, .signup-form select, .signup-form textarea {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      padding: 14px 16px;
+      color: #fff;
+      font-size: 15px;
+      font-family: inherit;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .signup-form input:focus, .signup-form select:focus, .signup-form textarea:focus {
+      outline: none;
+      border-color: #FF8533;
+      background: rgba(255, 255, 255, 0.08);
+    }
+    .signup-form input::placeholder {
+      color: rgba(255, 255, 255, 0.4);
+    }
+    .signup-form button {
+      background: linear-gradient(135deg, #FF8A2C, #FF5500);
+      color: #fff;
+      border: none;
+      padding: 14px 24px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+      box-shadow: 0 6px 18px rgba(255, 106, 0, 0.35);
+    }
+    .signup-form button:hover { box-shadow: 0 10px 24px rgba(255, 106, 0, 0.5); }
+    .signup-form button:active { transform: scale(0.97); }
+    .signup-form button:disabled { opacity: 0.5; cursor: not-allowed; }
+    .form-status {
+      text-align: center;
+      margin-top: 12px;
+      font-size: 14px;
+      min-height: 22px;
+    }
+    .form-status.success { color: #22C55E; }
+    .form-status.error { color: #EF4444; }
+
+    .dealer-section {
+      max-width: 540px;
+      margin: 80px auto 60px;
+      padding: 32px 24px;
+      background: rgba(255, 106, 0, 0.06);
+      border: 1px solid rgba(255, 106, 0, 0.25);
+      border-radius: 18px;
+    }
+    .dealer-section h2 {
+      color: #FFB070;
+      text-align: center;
+      margin-top: 0;
+    }
+  </style>
 </head>
 <body>
   <header class="nav">
@@ -71,16 +205,17 @@
         AutoReel
       </a>
       <nav class="nav-links">
+        <a href="/about.html">Despre</a>
         <a href="/faq.html">FAQ</a>
         <a href="/terms.html">Termeni</a>
-        <a href="/privacy.html">Confidențialitate</a>
         <a href="/contact.html">Contact</a>
       </nav>
     </div>
   </header>
 
   <section class="hero">
-    <div class="hero-content">
+    <div class="hero-content text-center" style="margin:0 auto;">
+      <span class="badge-pre">🚀 Lansare în curând</span>
       <div class="logo">
         <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
           <g fill="#FFFFFF">
@@ -89,23 +224,60 @@
           </g>
         </svg>
       </div>
-      <h1>AutoReel</h1>
-      <p class="tagline">Nu mai cauți mașini.<br>Le descoperi.</p>
-      <div class="cta-buttons">
-        <a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=com.autoreel.autoreel">
-          Descarcă pentru Android
-        </a>
-        <a class="btn btn-secondary" href="https://apps.apple.com/app/idYOUR_APPLE_APP_ID">
-          Descarcă pentru iPhone
-        </a>
-      </div>
-      <p class="text-muted" style="font-size:13px;margin-top:20px;">Marketplace photos-first pentru mașini second-hand în România.</p>
+      <h1>Nu mai cauți mașini.<br>Le descoperi.</h1>
+      <p class="tagline">Marketplace photos-first pentru mașini second-hand din România. Lansăm în curând pe Android și iOS.</p>
     </div>
+  </section>
+
+  <section class="features">
+    <div class="feature">
+      <div class="feature-icon">📱</div>
+      <h3>Feed photos-first</h3>
+      <p>Glisezi în sus, descoperi mașini. Zero pop-up-uri, zero anunțuri sponsorizate care îți ascund rezultatele.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">💬</div>
+      <h3>Contact direct</h3>
+      <p>Apeși „Discută", vorbești cu vânzătorul pe WhatsApp. Fără intermediari, fără chat-uri care îți acoperă inbox-ul.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">🆓</div>
+      <h3>Gratis</h3>
+      <p>Pentru cumpărători și pentru dealeri. Fără abonamente, fără taxe per anunț. Așa rămâne.</p>
+    </div>
+  </section>
+
+  <section class="form-section">
+    <h2>Vrei să afli când e gata?</h2>
+    <p class="sub">Lasă-ne un email și te anunțăm la lansare. Niciun spam, doar momentul în care app-ul devine public.</p>
+    <form id="buyerForm" class="signup-form inline">
+      <input type="email" name="email" placeholder="email@example.com" required autocomplete="email">
+      <button type="submit">Anunță-mă</button>
+    </form>
+    <div class="form-status" id="buyerStatus"></div>
+  </section>
+
+  <section class="dealer-section">
+    <h2>🏆 Ești dealer auto?</h2>
+    <p class="text-center text-muted" style="margin-bottom:22px;">Caut 20 de dealeri din România care vor să testeze AutoReel înainte de toți ceilalți. Acces beta gratuit, suport prioritar, influențezi direct ce feature-uri vin următoare.</p>
+    <form id="dealerForm" class="signup-form">
+      <input type="text" name="display_name" placeholder="Nume firmă sau persoană" required>
+      <input type="email" name="email" placeholder="Email contact" required autocomplete="email">
+      <input type="tel" name="phone" placeholder="Telefon (+40...)" required autocomplete="tel">
+      <input type="text" name="city" placeholder="Oraș" required autocomplete="address-level2">
+      <button type="submit">Aplică ca beta tester</button>
+    </form>
+    <div class="form-status" id="dealerStatus"></div>
+  </section>
+
+  <section style="text-align:center;padding:32px 24px;">
+    <p class="text-muted">Vrei să afli mai multe? <a href="/about.html">Citește povestea AutoReel →</a></p>
   </section>
 
   <footer class="footer">
     <div class="footer-links">
       <a href="/">Acasă</a>
+      <a href="/about.html">Despre</a>
       <a href="/faq.html">FAQ</a>
       <a href="/terms.html">Termeni</a>
       <a href="/privacy.html">Confidențialitate</a>
@@ -114,10 +286,63 @@
     <p>© AutoReel · Românească 🇷🇴</p>
   </footer>
 
+  <!-- Supabase JS client din CDN. Anon key e meant to be public —
+       RLS de pe `waitlist` restrânge ce poate face anon-ul (doar INSERT). -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
+    const SUPABASE_URL = 'https://ngdbnlcrejiqyumdvdnw.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_puQ5QRSxcFipFQkD8MXTlg_bHzUJUCw';
+    const supa = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    function showStatus(id, msg, kind) {
+      const el = document.getElementById(id);
+      el.textContent = msg;
+      el.className = 'form-status ' + (kind || '');
+    }
+
+    async function submitWaitlist(form, statusId, userType, extraFields) {
+      const formData = new FormData(form);
+      const payload = {
+        email: formData.get('email').trim().toLowerCase(),
+        user_type: userType,
+        source: 'landing',
+      };
+      for (const f of (extraFields || [])) {
+        const val = formData.get(f);
+        if (val) payload[f] = val.trim();
+      }
+
+      const btn = form.querySelector('button');
+      btn.disabled = true;
+      showStatus(statusId, 'Trimitem...', '');
+
+      const { error } = await supa.from('waitlist').insert(payload);
+      btn.disabled = false;
+
+      if (error) {
+        if (error.code === '23505') {
+          showStatus(statusId, 'Ești deja pe listă. Te anunțăm la lansare.', 'success');
+          form.reset();
+        } else {
+          showStatus(statusId, 'Eroare: ' + (error.message || 'încearcă din nou'), 'error');
+        }
+        return;
+      }
+      showStatus(statusId, '✓ Înscriere reușită. Te anunțăm la lansare!', 'success');
+      form.reset();
+    }
+
+    document.getElementById('buyerForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      submitWaitlist(e.target, 'buyerStatus', 'buyer');
+    });
+
+    document.getElementById('dealerForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      submitWaitlist(e.target, 'dealerStatus', 'dealer', ['display_name', 'phone', 'city']);
+    });
+
     // Deep link routing pentru utilizatorii care intră via share link.
-    // Pe iOS/Android cu app-ul instalat, OS-ul interceptează link-ul ÎNAINTE
-    // ca această pagină să se încarce. Codul de aici e fallback.
     const path = window.location.pathname;
     if (/^\/car\/[a-f0-9-]+/.test(path) || /^\/dealer\/[a-f0-9-]+/.test(path)) {
       document.title = 'Deschide în AutoReel';
