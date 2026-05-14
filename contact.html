@@ -71,9 +71,30 @@
             style="background:rgba(255,122,31,0.12);border:1px solid rgba(255,122,31,0.30);padding:10px 16px;border-radius:10px;font-size:14px;font-weight:600;color:#FF7A1F;cursor:pointer;font-family:inherit;">
             Copiază
           </button>
-          <a href="mailto:victor@autoreel.ro"
-            style="background:linear-gradient(135deg,#FF8A2C,#FF5500);color:#fff;padding:10px 18px;border-radius:10px;font-size:14px;font-weight:600;text-decoration:none;display:inline-block;">
-            Trimite email
+        </div>
+
+        <!--
+          Trei link-uri webmail directe — funcționează garantat indiferent
+          de setup-ul userului (deschid tab nou cu compose pre-completat).
+          Mailto a fost scos pentru că pe desktop fără mail client default
+          face blank page, frustrant pentru user.
+        -->
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;">
+          <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=victor@autoreel.ro&amp;su=Suport%20AutoReel"
+            target="_blank" rel="noopener"
+            style="background:linear-gradient(135deg,#FF8A2C,#FF5500);color:#fff;padding:10px 16px;border-radius:10px;font-size:14px;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:6px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/></svg>
+            Deschide în Gmail
+          </a>
+          <a href="https://outlook.live.com/owa/?path=/mail/action/compose&amp;to=victor@autoreel.ro&amp;subject=Suport%20AutoReel"
+            target="_blank" rel="noopener"
+            style="background:rgba(255,255,255,0.06);color:#fff;border:1px solid rgba(255,255,255,0.18);padding:10px 16px;border-radius:10px;font-size:14px;font-weight:600;text-decoration:none;display:inline-block;">
+            Outlook
+          </a>
+          <a href="mailto:victor@autoreel.ro?subject=Suport%20AutoReel"
+            style="background:rgba(255,255,255,0.06);color:#fff;border:1px solid rgba(255,255,255,0.18);padding:10px 16px;border-radius:10px;font-size:14px;font-weight:600;text-decoration:none;display:inline-block;"
+            title="Doar dacă ai un mail client default configurat">
+            App de mail
           </a>
         </div>
 
