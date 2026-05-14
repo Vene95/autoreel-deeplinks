@@ -51,11 +51,70 @@
       </div>
       <div class="contact-body">
         <h3>Email</h3>
-        <p style="margin-bottom:8px;">Pentru orice subiect — suport tehnic, întrebări despre cont, exercitarea drepturilor GDPR, sesizări fraude.</p>
-        <a class="contact-email" href="mailto:victor@autoreel.ro">victor@autoreel.ro</a>
+        <p style="margin-bottom:12px;">Pentru orice subiect — suport tehnic, întrebări despre cont, exercitarea drepturilor GDPR, sesizări fraude.</p>
+
+        <!--
+          UX pentru contact email pe Web:
+            - text mare cu adresa = selectabil + copyable manual
+            - buton „Copiază" cu feedback vizual
+            - buton „Trimite email" cu mailto (deschide mail client dacă există)
+          De ce nu doar mailto: pe desktop fără mail client configurat,
+          mailto deschide tab gol -> user confuz. Vizibilitatea adresei +
+          copy button = funcționează garantat indiferent de setup.
+        -->
+        <div class="contact-email-row" style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:8px;">
+          <code class="contact-email" id="emailValue"
+            style="background:rgba(255,122,31,0.08);border:1px solid rgba(255,122,31,0.25);padding:10px 14px;border-radius:10px;font-size:16px;font-weight:600;color:#FF7A1F;font-family:inherit;user-select:all;cursor:text;">
+            victor@autoreel.ro
+          </code>
+          <button id="copyEmailBtn" type="button"
+            style="background:rgba(255,122,31,0.12);border:1px solid rgba(255,122,31,0.30);padding:10px 16px;border-radius:10px;font-size:14px;font-weight:600;color:#FF7A1F;cursor:pointer;font-family:inherit;">
+            Copiază
+          </button>
+          <a href="mailto:victor@autoreel.ro"
+            style="background:linear-gradient(135deg,#FF8A2C,#FF5500);color:#fff;padding:10px 18px;border-radius:10px;font-size:14px;font-weight:600;text-decoration:none;display:inline-block;">
+            Trimite email
+          </a>
+        </div>
+
         <p class="text-muted" style="font-size:13px;margin-top:8px;">Răspundem în maxim 15 zile lucrătoare (de obicei în 24-48 ore).</p>
       </div>
     </div>
+
+    <script>
+      // Copy email la clipboard cu feedback vizual scurt
+      (function () {
+        var btn = document.getElementById('copyEmailBtn');
+        var email = document.getElementById('emailValue');
+        if (!btn || !email) return;
+        var originalText = btn.textContent;
+        btn.addEventListener('click', function () {
+          var text = email.textContent.trim();
+          var done = function () {
+            btn.textContent = '✓ Copiat';
+            setTimeout(function () { btn.textContent = originalText; }, 1800);
+          };
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(done).catch(function () {
+              // fallback la metoda veche dacă clipboard API e blocked
+              var ta = document.createElement('textarea');
+              ta.value = text;
+              document.body.appendChild(ta);
+              ta.select();
+              try { document.execCommand('copy'); done(); } catch (e) {}
+              document.body.removeChild(ta);
+            });
+          } else {
+            var ta = document.createElement('textarea');
+            ta.value = text;
+            document.body.appendChild(ta);
+            ta.select();
+            try { document.execCommand('copy'); done(); } catch (e) {}
+            document.body.removeChild(ta);
+          }
+        });
+      })();
+    </script>
 
     <div class="contact-card">
       <div class="contact-icon">
