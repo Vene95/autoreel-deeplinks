@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>AutoReel — Marketplace de mașini din România</title>
-  <meta name="description" content="AutoReel este marketplace-ul mobil pentru mașini second-hand din România. Descoperă, salvează și contactează vânzători printr-un feed vertical, photos-first. Lansare în curând pe Android și iOS.">
+  <meta name="description" content="AutoReel — marketplace pentru mașini second-hand cu feed vertical pe phone. Stil TikTok, contact direct prin WhatsApp. Beta gratuit, live acum pe web (autoreel.ro). Pentru persoane fizice și dealeri.">
   <meta name="keywords" content="mașini second hand, anunțuri auto, marketplace auto România, vânzare mașini, autoturisme, AutoReel">
   <meta name="theme-color" content="#FF6A00">
   <link rel="canonical" href="https://autoreel.ro/">
@@ -467,7 +467,7 @@
 
   <section class="hero">
     <div class="hero-content text-center" style="margin:0 auto;">
-      <span class="badge-pre">Lansare în curând</span>
+      <span class="badge-pre">Beta deschis · Gratuit</span>
       <div class="logo">
         <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
           <g fill="#FFFFFF">
@@ -548,8 +548,8 @@
   <div class="section-divider">Înscrie-te</div>
 
   <section class="form-section">
-    <h2>Vrei să afli când e gata?</h2>
-    <p class="sub">Lasă-ne un email și te anunțăm la lansare. Niciun spam, doar momentul în care app-ul devine public.</p>
+    <h2>Vrei alertă la app-urile native?</h2>
+    <p class="sub">Webul e live acum (autoreel.ro). Lasă-ne emailul și te anunțăm când scoatem și app-uri native pentru Android (Play Store) și iPhone (App Store). Fără spam.</p>
     <form id="buyerForm" class="signup-form inline">
       <input type="email" name="email" placeholder="email@example.com" required autocomplete="email">
       <button type="submit">Anunță-mă</button>
@@ -639,14 +639,14 @@
 
       if (error) {
         if (error.code === '23505') {
-          showStatus(statusId, 'Ești deja pe listă. Te anunțăm la lansare.', 'success');
+          showStatus(statusId, 'Ești deja pe listă. Te anunțăm la lansarea app-urilor native.', 'success');
           form.reset();
         } else {
           showStatus(statusId, 'Eroare: ' + (error.message || 'încearcă din nou'), 'error');
         }
         return;
       }
-      showStatus(statusId, '✓ Înscriere reușită. Te anunțăm la lansare!', 'success');
+      showStatus(statusId, '✓ Înscriere reușită. Te anunțăm la lansarea app-urilor native!', 'success');
       form.reset();
     }
 
