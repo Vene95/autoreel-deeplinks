@@ -434,6 +434,146 @@
       color: var(--text);
       font-weight: 600;
     }
+
+    /* ============================ Parteneri ============================ */
+    .partners-section {
+      max-width: 1040px;
+      margin: 0 auto 56px;
+      padding: 0 24px;
+    }
+    .partners-title {
+      text-align: center;
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      line-height: 1.15;
+      margin: 0 0 14px;
+    }
+    .partners-sub {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.5;
+      max-width: 620px;
+      margin: 0 auto 32px;
+    }
+    .partners-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+    .partner-card {
+      background: var(--surface-muted);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .partner-logo {
+      width: 64px;
+      height: 64px;
+      border-radius: 12px;
+      object-fit: contain;        /* `contain` ca să se vadă tot logo-ul; */
+      padding: 6px;               /* `cover` taie logo-urile orizontale.  */
+      flex-shrink: 0;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-sizing: border-box;
+    }
+    .partner-logo.initials {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 800;
+      font-size: 18px;
+      padding: 0;                 /* inițialele nu au nevoie de padding */
+      background: var(--brand);
+      border: none;
+    }
+    .partner-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .partner-name {
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: -0.2px;
+      margin: 0 0 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .partner-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin: 2px 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .partner-row a {
+      color: inherit;
+      text-decoration: none;
+    }
+    .partner-row a:hover { color: var(--brand); }
+    .partner-row.phone a { color: var(--brand); font-weight: 700; }
+    .partner-row svg { width: 14px; height: 14px; flex-shrink: 0; }
+    .partner-card.empty {
+      border: 1.5px dashed var(--border);
+      background: transparent;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      min-height: 110px;
+      color: var(--text-muted);
+      gap: 6px;
+    }
+    .partner-card.empty .plus-icon { width: 28px; height: 28px; }
+    .partner-card.empty .label {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+    .partners-footer {
+      text-align: center;
+      padding: 20px;
+      background: var(--surface-muted);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+    }
+    .partners-count {
+      color: var(--brand);
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    .partners-cta { font-size: 14px; margin-bottom: 12px; }
+    .partners-cta a {
+      color: var(--brand);
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .partners-cta a:hover { text-decoration: underline; }
+    .partners-disclaimer {
+      color: var(--text-muted);
+      font-size: 11px;
+      font-style: italic;
+      margin: 0;
+    }
+    .partners-loading {
+      grid-column: 1 / -1;
+      text-align: center;
+      color: var(--text-muted);
+      padding: 32px 0;
+      font-size: 14px;
+    }
   </style>
   <!-- Cloudflare Web Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "ddfbcdf8ed7e42c188fbd9757f796d23"}'></script><!-- End Cloudflare Web Analytics -->
 </head>
@@ -542,6 +682,29 @@
       </div>
       <h3>Transparent, fără surprize</h3>
       <p>Pentru cumpărători rămâne gratis întotdeauna. Pentru dealeri cu volum mare e posibil să introducem un plan accesibil în viitor — comunicat cu preaviz.</p>
+    </div>
+  </section>
+
+
+  <div class="section-divider">Parcurile partenere</div>
+
+  <!-- ============================================================
+       Programul partener — primele 10 parcuri auto care au ajutat
+       AutoReel să crească. Conținut tras client-side din tabela
+       `public.partners` (migration 0009) cu RLS public read.
+       ============================================================ -->
+  <section id="parteneri" class="partners-section">
+    <h2 class="partners-title">Primele 10 parcuri care<br>ne-au ajutat să creștem</h2>
+    <p class="partners-sub">Dealerii care au postat anunțuri pe AutoReel în beta, când nimeni nu cunoștea încă platforma. Le mulțumim pentru încredere.</p>
+
+    <div id="partnersGrid" class="partners-grid">
+      <div class="partners-loading">Se încarcă lista…</div>
+    </div>
+
+    <div class="partners-footer">
+      <div class="partners-count" id="partnersCount">— / 10 locuri ocupate</div>
+      <div class="partners-cta" id="partnersCTA"></div>
+      <p class="partners-disclaimer">Mulțumesc pentru încredere. Veți avea mereu acces prioritar la features noi.</p>
     </div>
   </section>
 
@@ -659,6 +822,92 @@
       e.preventDefault();
       submitWaitlist(e.target, 'dealerStatus', 'dealer', ['display_name', 'phone', 'city']);
     });
+
+
+    // ============== Partners section — fetch & render ==============
+    const PARTNERS_MAX = 10;
+    const FOUNDER_EMAIL = 'victor@autoreel.ro';
+
+    function escapeHtml(s) {
+      if (s == null) return '';
+      return String(s)
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+    }
+
+    function initialsOf(name) {
+      const parts = (name || '').trim().split(/\s+/);
+      if (parts.length === 0) return '?';
+      if (parts.length === 1) return parts[0].substring(0, 2).toUpperCase();
+      return parts.slice(0, 3).map(p => p[0] || '').join('').toUpperCase();
+    }
+
+    function renderPartnerCard(p) {
+      const logo = p.logo_url
+        ? `<img class="partner-logo" src="${escapeHtml(p.logo_url)}" alt="${escapeHtml(p.name)}" loading="lazy">`
+        : `<div class="partner-logo initials">${escapeHtml(initialsOf(p.name))}</div>`;
+      const location = p.county ? `${escapeHtml(p.city)}, ${escapeHtml(p.county)}` : escapeHtml(p.city);
+      const emailRow = p.email
+        ? `<div class="partner-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="mailto:${escapeHtml(p.email)}">${escapeHtml(p.email)}</a></div>`
+        : '';
+      const phoneRow = p.phone
+        ? `<div class="partner-row phone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg><a href="tel:${escapeHtml(p.phone)}">${escapeHtml(p.phone)}</a></div>`
+        : '';
+      return `
+        <div class="partner-card">
+          ${logo}
+          <div class="partner-info">
+            <div class="partner-name">${escapeHtml(p.name)}</div>
+            <div class="partner-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>${location}</div>
+            ${emailRow}
+            ${phoneRow}
+          </div>
+        </div>`;
+    }
+
+    function renderEmptySlot() {
+      return `
+        <div class="partner-card empty">
+          <svg class="plus-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          <div class="label">Loc liber</div>
+        </div>`;
+    }
+
+    async function fetchPartners() {
+      const grid = document.getElementById('partnersGrid');
+      const counter = document.getElementById('partnersCount');
+      const cta = document.getElementById('partnersCTA');
+      try {
+        const { data, error } = await supa
+          .from('partners')
+          .select('*')
+          .eq('is_active', true)
+          .order('display_order', { ascending: true });
+        if (error) throw error;
+        const partners = data || [];
+        const activeCount = partners.length;
+        const emptyCount = Math.max(0, PARTNERS_MAX - activeCount);
+        let html = partners.map(renderPartnerCard).join('');
+        for (let i = 0; i < emptyCount; i++) html += renderEmptySlot();
+        grid.innerHTML = html || `<div class="partners-loading">Lista partenerilor va apărea aici curând.</div>`;
+        counter.textContent = `${activeCount} / ${PARTNERS_MAX} locuri ocupate`;
+        const full = activeCount >= PARTNERS_MAX;
+        if (full) {
+          cta.innerHTML = `Programul partener e complet pentru moment.`;
+        } else {
+          const next = activeCount + 1;
+          const subject = encodeURIComponent('Înscriere program partener AutoReel');
+          cta.innerHTML = `Tu vrei să fii al ${next}-lea?<br><a href="mailto:${FOUNDER_EMAIL}?subject=${subject}">${FOUNDER_EMAIL}</a>`;
+        }
+      } catch (e) {
+        console.error('Failed to load partners:', e);
+        grid.innerHTML = `<div class="partners-loading">Nu am putut încărca lista. Reîncearcă mai târziu.</div>`;
+        counter.textContent = '— / 10 locuri ocupate';
+        cta.innerHTML = `Pentru detalii: <a href="mailto:${FOUNDER_EMAIL}">${FOUNDER_EMAIL}</a>`;
+      }
+    }
+
+    fetchPartners();
 
     // Deep link routing pentru utilizatorii care intră via share link.
     const path = window.location.pathname;
