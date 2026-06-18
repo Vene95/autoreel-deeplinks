@@ -455,6 +455,30 @@
       width: auto;
       filter: drop-shadow(0 10px 26px rgba(0, 0, 0, 0.45));
     }
+    .play-badge-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .play-badge {
+      display: inline-block;
+      cursor: default;
+      pointer-events: none;
+    }
+    .play-badge img {
+      display: block;
+      height: 64px;
+      width: auto;
+      filter: grayscale(1) brightness(0.9);
+      opacity: 0.45;
+    }
+    .soon-note {
+      color: var(--text-dim);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+    }
     .web-btn {
       display: inline-flex;
       align-items: center;
@@ -679,20 +703,22 @@
          web (app.autoreel.ro) pentru cine nu are iPhone. Android urmează în
          câteva săptămâni — vezi `app-native-note`. -->
     <div class="download-cta">
+      <a class="web-btn" href="https://app.autoreel.ro/?utm_source=autoreel_ro&utm_medium=landing&utm_campaign=cta_web">
+        Accesează din browser &rarr;
+      </a>
       <a class="app-store-badge"
          href="https://apps.apple.com/ro/app/autoreel-marketplace-auto/id6781619559?utm_source=autoreel_ro&utm_medium=landing&utm_campaign=appstore_badge"
          target="_blank" rel="noopener"
          aria-label="Descarcă AutoReel de pe App Store">
         <img src="/app-store-badge.svg" alt="Descărcați de pe App Store" width="192" height="64">
       </a>
-      <a class="web-btn" href="https://app.autoreel.ro/?utm_source=autoreel_ro&utm_medium=landing&utm_campaign=cta_web">
-        Accesează din browser &rarr;
-      </a>
+      <div class="play-badge-wrap">
+        <span class="play-badge disabled" aria-disabled="true" title="Disponibil în curând">
+          <img src="/google-play-badge.svg" alt="Descarcă de pe Google Play (în curând)" width="216" height="64">
+        </span>
+        <span class="soon-note">Aplicația Android &mdash; în câteva săptămâni</span>
+      </div>
     </div>
-    <p class="app-native-note">
-      📱 <strong>iPhone</strong> &mdash; disponibil acum pe App Store.
-      <strong>Android</strong> (Play Store) &mdash; în câteva săptămâni.
-    </p>
   </section>
 
   <section class="features">
@@ -775,7 +801,7 @@
       </svg>
       Ești dealer auto?
     </h2>
-    <p class="text-center text-muted" style="margin-bottom:22px; position:relative;">Caut 20 de dealeri din România care vor să testeze AutoReel înainte de toți ceilalți. Acces beta gratuit, suport prioritar, influențezi direct ce feature-uri vin următoare.</p>
+    <p class="text-center text-muted" style="margin-bottom:22px; position:relative;">Caut 10 dealeri din România care vor să testeze AutoReel înainte de toți ceilalți. Acces beta gratuit, suport prioritar, influențezi direct ce feature-uri vin următoare.</p>
     <form id="dealerForm" class="signup-form" style="position:relative;">
       <input type="text" name="display_name" placeholder="Nume firmă sau persoană" required>
       <input type="email" name="email" placeholder="Email contact" required autocomplete="email">
