@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>AutoReel — Marketplace de mașini din România</title>
-  <meta name="description" content="AutoReel — marketplace pentru mașini second-hand cu feed vertical pe phone. Stil TikTok, contact direct prin WhatsApp. Beta gratuit, live acum pe web (autoreel.ro). Pentru persoane fizice și dealeri.">
+  <meta name="description" content="AutoReel — marketplace pentru mașini second-hand cu feed vertical pe phone. Stil TikTok, contact direct prin WhatsApp. Gratuit, acum pe App Store (iPhone) și pe web (autoreel.ro). Pentru persoane fizice și dealeri.">
   <meta name="keywords" content="mașini second hand, anunțuri auto, marketplace auto România, vânzare mașini, autoturisme, AutoReel">
   <meta name="theme-color" content="#FF6A00">
   <link rel="canonical" href="https://autoreel.ro/">
@@ -435,6 +435,35 @@
       font-weight: 600;
     }
 
+    /* ============================================================
+       DOWNLOAD — descriere + badge oficial App Store + link web
+       ============================================================ */
+    .download-cta {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+    .app-store-badge {
+      display: inline-block;
+      transition: transform 0.18s var(--ease);
+    }
+    .app-store-badge:hover { transform: translateY(-2px); }
+    .app-store-badge img {
+      display: block;
+      height: 64px;
+      width: auto;
+      filter: drop-shadow(0 10px 26px rgba(0, 0, 0, 0.45));
+    }
+    .app-web-link {
+      color: var(--brand-light);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: -0.005em;
+    }
+    .app-web-link:hover { text-decoration: underline; }
+
     /* ============================ Parteneri ============================ */
     .partners-section {
       max-width: 1040px;
@@ -622,33 +651,24 @@
   </section>
 
   <section style="max-width:680px;margin:0 auto 60px;padding:0 24px;">
-    <!-- CTA principal: 1 buton mare, clar, fără distrageri.
-         Butoanele „Android — În curând" și „iPhone — În curând" au fost
-         eliminate temporar pentru că măreau friction (utilizatorii apăsau
-         pe ele crezând că merg și plecau frustrate). Apps native vor reveni
-         după lansarea publică pe Play Store + App Store. Vezi `app-native-note`
-         sub buton pentru transparență (nu pierdem userii care vor app nativă —
-         ei știu să revină). -->
-    <div class="app-buttons app-buttons-single">
-      <a class="app-btn primary app-btn-large" href="https://app.autoreel.ro/?utm_source=autoreel_ro&utm_medium=landing&utm_campaign=cta_main">
-        <span class="app-btn-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="12" cy="12" r="9"/>
-            <path d="M3.6 9h16.8"/>
-            <path d="M3.6 15h16.8"/>
-            <path d="M12 3a14 14 0 0 1 0 18"/>
-            <path d="M12 3a14 14 0 0 0 0 18"/>
-          </svg>
-        </span>
-        <span class="app-btn-text">
-          <span class="app-btn-label">Testează marketplace-ul</span>
-          <span class="app-btn-eyebrow">Fără download · direct din web</span>
-        </span>
+    <!-- CTA principal: AutoReel e LIVE pe App Store (iOS). Badge oficial Apple
+         (deeplinks/app-store-badge.svg) ca primary, plus link secundar către
+         web (app.autoreel.ro) pentru cine nu are iPhone. Android urmează în
+         câteva săptămâni — vezi `app-native-note`. -->
+    <div class="download-cta">
+      <a class="app-store-badge"
+         href="https://apps.apple.com/ro/app/autoreel-marketplace-auto/id6781619559?utm_source=autoreel_ro&utm_medium=landing&utm_campaign=appstore_badge"
+         target="_blank" rel="noopener"
+         aria-label="Descarcă AutoReel de pe App Store">
+        <img src="/app-store-badge.svg" alt="Descărcați de pe App Store" width="192" height="64">
+      </a>
+      <a class="app-web-link" href="https://app.autoreel.ro/?utm_source=autoreel_ro&utm_medium=landing&utm_campaign=cta_web">
+        sau testează direct în browser, fără download &rarr;
       </a>
     </div>
     <p class="app-native-note">
-      📱 Apps native pentru <strong>Android</strong> și <strong>iPhone</strong>
-      &mdash; disponibile în câteva săptămâni.
+      📱 <strong>iPhone</strong> &mdash; disponibil acum pe App Store.
+      <strong>Android</strong> (Play Store) &mdash; în câteva săptămâni.
     </p>
   </section>
 
@@ -711,8 +731,8 @@
   <div class="section-divider">Înscrie-te</div>
 
   <section class="form-section">
-    <h2>Vrei alertă la app-urile native?</h2>
-    <p class="sub">Webul e live acum (autoreel.ro). Lasă-ne emailul și te anunțăm când scoatem și app-uri native pentru Android (Play Store) și iPhone (App Store). Fără spam.</p>
+    <h2>Vrei alertă la versiunea de Android?</h2>
+    <p class="sub">AutoReel e live pe iPhone (App Store) și pe web (autoreel.ro). Lasă-ne emailul și te anunțăm când iese și app-ul nativ pentru Android (Play Store). Fără spam.</p>
     <form id="buyerForm" class="signup-form inline">
       <input type="email" name="email" placeholder="email@example.com" required autocomplete="email">
       <button type="submit">Anunță-mă</button>
