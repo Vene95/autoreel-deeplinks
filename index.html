@@ -455,14 +455,37 @@
       width: auto;
       filter: drop-shadow(0 10px 26px rgba(0, 0, 0, 0.45));
     }
-    .app-web-link {
-      color: var(--brand-light);
+    .web-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #FF8A2C, #FF5500);
+      color: #fff;
       text-decoration: none;
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 600;
       letter-spacing: -0.005em;
+      padding: 15px 30px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 106, 0, 0.40);
+      box-shadow: 0 8px 22px rgba(255, 106, 0, 0.35);
+      position: relative;
+      transition: transform 0.15s var(--ease), box-shadow 0.2s var(--ease);
     }
-    .app-web-link:hover { text-decoration: underline; }
+    .web-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(180deg, rgba(255,255,255,0.20), transparent 55%);
+      pointer-events: none;
+    }
+    .web-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 32px rgba(255, 106, 0, 0.5);
+    }
+    .web-btn:active { transform: scale(0.97); }
 
     /* ============================ Parteneri ============================ */
     .partners-section {
@@ -662,8 +685,8 @@
          aria-label="Descarcă AutoReel de pe App Store">
         <img src="/app-store-badge.svg" alt="Descărcați de pe App Store" width="192" height="64">
       </a>
-      <a class="app-web-link" href="https://app.autoreel.ro/?utm_source=autoreel_ro&utm_medium=landing&utm_campaign=cta_web">
-        sau testează direct în browser, fără download &rarr;
+      <a class="web-btn" href="https://app.autoreel.ro/?utm_source=autoreel_ro&utm_medium=landing&utm_campaign=cta_web">
+        Accesează din browser &rarr;
       </a>
     </div>
     <p class="app-native-note">
