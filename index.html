@@ -463,13 +463,23 @@
     }
     .play-badge {
       display: inline-block;
-      cursor: default;
-      pointer-events: none;
+      transition: transform 0.18s var(--ease);
     }
+    .play-badge:hover { transform: translateY(-2px); }
     .play-badge img {
       display: block;
       height: 64px;
       width: auto;
+      filter: drop-shadow(0 10px 26px rgba(0, 0, 0, 0.45));
+    }
+    /* Stare „în curând" — se aplică pe badge cât timp platforma nu e live.
+       Se reactivează prin simpla adăugare/ștergere a clasei .disabled. */
+    .play-badge.disabled {
+      cursor: default;
+      pointer-events: none;
+    }
+    .play-badge.disabled:hover { transform: none; }
+    .play-badge.disabled img {
       filter: grayscale(1) brightness(0.9);
       opacity: 0.45;
     }
@@ -698,10 +708,10 @@
   </section>
 
   <section style="max-width:680px;margin:0 auto 60px;padding:0 24px;">
-    <!-- CTA principal: AutoReel e LIVE pe App Store (iOS). Badge oficial Apple
-         (deeplinks/app-store-badge.svg) ca primary, plus link secundar către
-         web (app.autoreel.ro) pentru cine nu are iPhone. Android urmează în
-         câteva săptămâni — vezi `app-native-note`. -->
+    <!-- CTA principal: AutoReel e LIVE pe ambele magazine — App Store (iOS) și
+         Google Play (Android, package com.autoreel.autoreel). Badge-uri oficiale
+         din deeplinks/, plus link secundar către web (app.autoreel.ro) pentru
+         desktop / cine nu vrea să instaleze. -->
     <div class="download-cta">
       <a class="web-btn" href="https://app.autoreel.ro/?utm_source=autoreel_ro&utm_medium=landing&utm_campaign=cta_web">
         Accesează din browser &rarr;
@@ -713,10 +723,12 @@
         <img src="/app-store-badge.svg" alt="Descărcați de pe App Store" width="192" height="64">
       </a>
       <div class="play-badge-wrap">
-        <span class="play-badge disabled" aria-disabled="true" title="Disponibil în curând">
-          <img src="/google-play-badge.svg" alt="Descarcă de pe Google Play (în curând)" width="216" height="64">
-        </span>
-        <span class="soon-note">Aplicația Android &mdash; în câteva săptămâni</span>
+        <a class="play-badge"
+           href="https://play.google.com/store/apps/details?id=com.autoreel.autoreel&utm_source=autoreel_ro&utm_medium=landing&utm_campaign=play_badge"
+           target="_blank" rel="noopener"
+           aria-label="Descarcă AutoReel de pe Google Play">
+          <img src="/google-play-badge.svg" alt="Descărcați din Google Play" width="216" height="64">
+        </a>
       </div>
     </div>
   </section>
@@ -777,17 +789,10 @@
     </div>
   </section>
 
+  <!-- Secțiunea „alertă Android" a fost scoasă: app-ul e live pe ambele
+       magazine, deci waitlist-ul pentru cumpărători nu mai are rost.
+       Formularul de dealeri rămâne — e o aplicație de beta tester. -->
   <div class="section-divider">Înscrie-te</div>
-
-  <section class="form-section">
-    <h2>Vrei alertă la versiunea de Android?</h2>
-    <p class="sub">AutoReel e live pe iPhone (App Store) și pe web (autoreel.ro). Lasă-ne emailul și te anunțăm când iese și app-ul nativ pentru Android (Play Store). Fără spam.</p>
-    <form id="buyerForm" class="signup-form inline">
-      <input type="email" name="email" placeholder="email@example.com" required autocomplete="email">
-      <button type="submit">Anunță-mă</button>
-    </form>
-    <div class="form-status" id="buyerStatus"></div>
-  </section>
 
   <section class="dealer-section">
     <h2>
@@ -871,21 +876,16 @@
 
       if (error) {
         if (error.code === '23505') {
-          showStatus(statusId, 'Ești deja pe listă. Te anunțăm la lansarea app-urilor native.', 'success');
+          showStatus(statusId, 'Ești deja pe listă. Te contactăm în cel mai scurt timp.', 'success');
           form.reset();
         } else {
           showStatus(statusId, 'Eroare: ' + (error.message || 'încearcă din nou'), 'error');
         }
         return;
       }
-      showStatus(statusId, '✓ Înscriere reușită. Te anunțăm la lansarea app-urilor native!', 'success');
+      showStatus(statusId, '✓ Înscriere reușită. Te contactăm în cel mai scurt timp!', 'success');
       form.reset();
     }
-
-    document.getElementById('buyerForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      submitWaitlist(e.target, 'buyerStatus', 'buyer');
-    });
 
     document.getElementById('dealerForm').addEventListener('submit', (e) => {
       e.preventDefault();
