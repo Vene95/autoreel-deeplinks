@@ -2,10 +2,12 @@
 <html lang="ro">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AutoReel — Deschide anunțul</title>
   <meta name="description" content="Deschide anunțul în aplicația AutoReel sau în versiunea web.">
   <meta name="theme-color" content="#FF6A00">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <meta name="robots" content="noindex">
   <link rel="stylesheet" href="/styles.css">
 
@@ -24,7 +26,11 @@
       // UUID v4 pattern (cum sunt id-urile din Supabase).
       var uuidRe = /^\/(?:car|dealer)\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}(?:\/[a-z]+)?$/i;
 
-      if (uuidRe.test(path)) {
+      // `/saved` și `/profile/...` sunt în apple-app-site-association; fără
+      // aplicație instalată, le trimitem tot la versiunea web.
+      var appRe = /^\/(?:saved\/?|profile(?:\/[a-z-]+)*\/?)$/i;
+
+      if (uuidRe.test(path) || appRe.test(path)) {
         // Path corect → redirect la web app. Folosim `replace` (nu `href`) ca
         // să nu apară 404-ul în history (back ar duce util înapoi la pagina
         // de unde a venit, nu la 404).

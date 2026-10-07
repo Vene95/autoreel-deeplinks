@@ -2,12 +2,17 @@
 <html lang="ro">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AutoReel — Marketplace de mașini din România</title>
-  <meta name="description" content="AutoReel — marketplace pentru mașini second-hand cu feed vertical pe phone. Stil TikTok, contact direct prin WhatsApp. Gratuit, acum pe App Store (iPhone) și pe web (autoreel.ro). Pentru persoane fizice și dealeri.">
+  <meta name="description" content="AutoReel — marketplace pentru mașini second-hand din România, cu feed vertical în stil TikTok și contact direct pe WhatsApp. Gratuit, pe App Store, Google Play și pe web. Pentru persoane fizice și parcuri auto.">
   <meta name="keywords" content="mașini second hand, anunțuri auto, marketplace auto România, vânzare mașini, autoturisme, AutoReel">
   <meta name="theme-color" content="#FF6A00">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="canonical" href="https://autoreel.ro/">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:image" content="https://autoreel.ro/og-image.png">
 
   <meta property="og:title" content="AutoReel — Descoperă mașini">
   <meta property="og:description" content="Nu mai cauți mașini. Le descoperi. Marketplace photos-first pentru mașini second-hand în România.">
@@ -46,32 +51,74 @@
     /* Stiluri specifice landing-ului — hero, features, forms */
     .hero { min-height: auto; padding: 88px 24px 40px; }
     .hero-content { max-width: 580px; }
-    .badge-pre {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(255, 106, 0, 0.10);
-      border: 1px solid rgba(255, 106, 0, 0.30);
-      color: var(--brand-light);
-      padding: 7px 14px 7px 12px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      margin-bottom: 24px;
-      text-transform: uppercase;
+
+    /* ---------- HERO v2 ---------- */
+    .hero.hero2 { min-height: auto; padding: 72px 24px 56px; }
+    .hero-grid {
+      position: relative; z-index: 1;
+      max-width: 1040px; width: 100%; margin: 0 auto;
+      display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; align-items: center;
+      animation: heroFade 0.9s var(--ease-out) both;
     }
-    .badge-pre::before {
-      content: '';
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--brand);
-      box-shadow: 0 0 12px var(--brand);
-      animation: pulse 2.4s ease-in-out infinite;
+    .hero-chip {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 14px; border-radius: 999px;
+      background: rgba(255,106,0,0.12); border: 1px solid rgba(255,106,0,0.35);
+      color: var(--brand-light); font-size: 13px; font-weight: 700; letter-spacing: 0.01em;
+      margin-bottom: 20px;
     }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50%      { opacity: 0.5; transform: scale(1.3); }
+    .hero-chip::before {
+      content: ''; width: 8px; height: 8px; border-radius: 50%;
+      background: var(--success); box-shadow: 0 0 0 4px rgba(52,211,153,0.18);
+    }
+    .hero2 h1 { font-size: clamp(38px, 5.6vw, 60px); text-align: left; }
+    .h1-accent {
+      background: linear-gradient(135deg, #FFB070, #FF6A00 55%, #D63E00);
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero2 .tagline { text-align: left; margin-left: 0; max-width: 500px; }
+    .hero2 .download-cta { align-items: flex-start; }
+    .store-badges { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+    .store-badges img { height: 50px; width: auto; display: block; }
+    .hero-visual { position: relative; display: flex; justify-content: center; min-height: 560px; }
+    .phone {
+      width: 270px; border-radius: 40px; padding: 10px; align-self: center;
+      background: linear-gradient(160deg, #2A2A34, #121218);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.08), 0 0 90px rgba(255,106,0,0.25);
+      transform: rotate(3deg);
+    }
+    .phone-screen { position: relative; width: 100%; aspect-ratio: 360 / 753; border-radius: 31px; overflow: hidden; background: #0E0E14; }
+    .phone-screen img {
+      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+      opacity: 0; transform: translateY(6%); transition: opacity 0.6s var(--ease), transform 0.6s var(--ease-out);
+    }
+    .phone-screen img.on { opacity: 1; transform: translateY(0); }
+    .leo-wrap { position: absolute; left: -10px; bottom: -6px; display: flex; flex-direction: column; align-items: flex-start; }
+    .leo { width: 170px; height: auto; filter: drop-shadow(0 16px 30px rgba(0,0,0,0.5)); }
+    .leo-bubble {
+      max-width: 200px; margin-bottom: 8px; padding: 10px 14px; border-radius: 16px 16px 16px 4px;
+      background: #fff; color: #14141C; font-size: 13px; font-weight: 700; line-height: 1.35;
+      box-shadow: 0 10px 26px rgba(0,0,0,0.4);
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .leo { animation: leoBob 3.2s ease-in-out infinite; }
+      @keyframes leoBob { 0%,100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-10px) rotate(2deg); } }
+    }
+    @media (max-width: 860px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 28px; text-align: center; }
+      .hero2 h1, .hero2 .tagline { text-align: center; margin-left: auto; margin-right: auto; }
+      .hero2 .download-cta { align-items: center; }
+      .store-badges { justify-content: center; }
+      .hero-visual { min-height: 500px; }
+      .phone { width: 240px; }
+      .leo-wrap { left: calc(50% - 230px); }
+      .leo { width: 140px; }
+    }
+    @media (max-width: 480px) {
+      .leo-wrap { left: 0; }
+      .leo-bubble { max-width: 150px; font-size: 12px; }
+      .leo { width: 110px; }
+      .phone { width: 220px; margin-left: 60px; }
     }
 
     .features {
@@ -277,165 +324,6 @@
     }
 
     /* ============================================================
-       APP BUTTONS — Android (disabled), iOS (disabled), Web (active)
-       ============================================================ */
-    .app-buttons {
-      display: flex;
-      gap: 12px;
-      max-width: 680px;
-      margin: 8px auto 14px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .app-btn {
-      flex: 1 1 200px;
-      min-width: 200px;
-      max-width: 240px;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 14px 18px;
-      border-radius: var(--radius);
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid var(--border);
-      text-decoration: none;
-      transition: transform 0.18s var(--ease), box-shadow 0.18s var(--ease), background 0.18s var(--ease);
-    }
-
-    .app-btn-icon {
-      width: 32px;
-      height: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .app-btn-icon svg {
-      width: 28px;
-      height: 28px;
-    }
-
-    .app-btn-text {
-      text-align: left;
-      flex: 1;
-      min-width: 0;
-    }
-
-    .app-btn-eyebrow {
-      font-size: 11px;
-      color: var(--text-dim);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      font-weight: 600;
-    }
-
-    .app-btn-label {
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--text);
-      letter-spacing: -0.01em;
-    }
-
-    .app-btn.disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-      pointer-events: none;
-    }
-
-    .app-btn.disabled .app-btn-icon svg,
-    .app-btn.disabled .app-btn-label {
-      color: rgba(245, 245, 247, 0.7);
-    }
-
-    .app-btn.primary {
-      background: linear-gradient(135deg, #FF8A2C, #FF5500);
-      border-color: rgba(255, 106, 0, 0.40);
-      box-shadow: 0 8px 22px rgba(255, 106, 0, 0.35);
-      position: relative;
-    }
-
-    .app-btn.primary::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      background: linear-gradient(180deg, rgba(255,255,255,0.18), transparent 55%);
-      pointer-events: none;
-    }
-
-    .app-btn.primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 14px 32px rgba(255, 106, 0, 0.5);
-    }
-
-    .app-btn.primary .app-btn-eyebrow {
-      color: rgba(255, 255, 255, 0.85);
-    }
-
-    .app-btn.primary .app-btn-label,
-    .app-btn.primary .app-btn-icon svg {
-      color: #fff;
-    }
-
-    .app-buttons-note {
-      text-align: center;
-      color: var(--text-dim);
-      font-size: 12px;
-      margin: 6px auto 0;
-    }
-
-    /* CTA simplificat — 1 buton mare singur, centrat, eye-catching.
-       Înlocuiește vechea grilă cu 3 butoane (Android disabled, iPhone disabled,
-       Web). Mai eficient pentru conversion: utilizatorii nu mai au „În curând"
-       să-i confuze. */
-    .app-buttons-single {
-      justify-content: center;
-      margin-bottom: 14px;
-    }
-
-    .app-btn-large {
-      flex: 0 1 360px;
-      max-width: 360px;
-      min-width: 280px;
-      padding: 20px 28px;
-      gap: 18px;
-    }
-
-    .app-btn-large .app-btn-icon {
-      width: 40px;
-      height: 40px;
-    }
-
-    .app-btn-large .app-btn-icon svg {
-      width: 36px;
-      height: 36px;
-    }
-
-    .app-btn-large .app-btn-eyebrow {
-      font-size: 12px;
-    }
-
-    .app-btn-large .app-btn-label {
-      font-size: 19px;
-    }
-
-    .app-native-note {
-      text-align: center;
-      max-width: 480px;
-      margin: 14px auto 0;
-      color: var(--text-dim);
-      font-size: 13px;
-      line-height: 1.55;
-    }
-
-    .app-native-note strong {
-      color: var(--text);
-      font-weight: 600;
-    }
-
-    /* ============================================================
        DOWNLOAD — descriere + badge oficial App Store + link web
        ============================================================ */
     .download-cta {
@@ -463,21 +351,14 @@
     }
     .play-badge {
       display: inline-block;
-      cursor: default;
-      pointer-events: none;
+      transition: transform 0.18s var(--ease);
     }
+    .play-badge:hover { transform: translateY(-2px); }
     .play-badge img {
       display: block;
       height: 64px;
       width: auto;
-      filter: grayscale(1) brightness(0.9);
-      opacity: 0.45;
-    }
-    .soon-note {
-      color: var(--text-dim);
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 0.01em;
+      filter: drop-shadow(0 10px 26px rgba(0, 0, 0, 0.45));
     }
     .web-btn {
       display: inline-flex;
@@ -681,42 +562,54 @@
     </div>
   </header>
 
-  <section class="hero">
-    <div class="hero-content text-center" style="margin:0 auto;">
-      <span class="badge-pre">Beta deschis · Gratuit</span>
-      <div class="logo">
-        <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
-          <g fill="#FFFFFF">
-            <path fill-rule="evenodd" d="M 43 183 L 105 73 L 119 183 Z M 81 155 L 93 155 L 97 183 L 65 183 Z"/>
-            <path fill-rule="evenodd" d="M 156 73 L 200 73 C 220 73 208 132 188 132 L 191 183 L 171 183 L 168 132 L 157 183 L 133 183 Z M 177 89 L 191 89 C 203 89 197 116 185 116 L 171 116 Z"/>
-          </g>
-        </svg>
+  <!-- HERO (oct 2026): text + butoane în stânga, telefon cu anunțuri reale
+       în dreapta și Leo lângă el. În telefon se rotesc câte o mașină de la
+       fiecare parc partener, în ordine geografică (vest → est), fără ca
+       vreun parc să fie „primul”. Capturile sunt din aplicație, cu numerele
+       de înmatriculare pixelate (hero/car1–6.webp). Cifrele din eticheta de
+       sus vin live din baza de date (heroStats, mai jos în script). -->
+  <section class="hero hero2">
+    <div class="hero-grid">
+      <div class="hero-text">
+        <span class="hero-chip" id="heroStats">Parcuri auto din toată țara</span>
+        <h1>Mașina ta e la<br><span class="h1-accent">un swipe</span> distanță.</h1>
+        <p class="tagline">Mașini second-hand de la parcuri auto din toată țara, într-un feed vertical ca pe TikTok. Glisezi, te oprești la ce-ți place și vorbești direct cu vânzătorul, pe WhatsApp.</p>
+        <div class="download-cta">
+          <a class="web-btn" href="https://app.autoreel.ro/?utm_source=autoreel_ro&utm_medium=landing&utm_campaign=cta_web">
+            Vezi mașinile acum &rarr;
+          </a>
+          <div class="store-badges">
+            <a class="app-store-badge"
+               href="https://apps.apple.com/ro/app/autoreel-marketplace-auto/id6781619559?utm_source=autoreel_ro&utm_medium=landing&utm_campaign=appstore_badge"
+               target="_blank" rel="noopener"
+               aria-label="Descarcă AutoReel de pe App Store">
+              <img src="/app-store-badge.svg" alt="Descărcați de pe App Store" width="150" height="50">
+            </a>
+            <a class="play-badge"
+               href="https://play.google.com/store/apps/details?id=com.autoreel.autoreel&utm_source=autoreel_ro&utm_medium=landing&utm_campaign=play_badge"
+               target="_blank" rel="noopener"
+               aria-label="Descarcă AutoReel de pe Google Play">
+              <img src="/google-play-badge.svg" alt="Descărcați din Google Play" width="169" height="50">
+            </a>
+          </div>
+        </div>
       </div>
-      <h1>Nu mai cauți mașini.<br>Le descoperi.</h1>
-      <p class="tagline">Marketplace photos-first pentru mașini second-hand din România.</p>
-    </div>
-  </section>
 
-  <section style="max-width:680px;margin:0 auto 60px;padding:0 24px;">
-    <!-- CTA principal: AutoReel e LIVE pe App Store (iOS). Badge oficial Apple
-         (deeplinks/app-store-badge.svg) ca primary, plus link secundar către
-         web (app.autoreel.ro) pentru cine nu are iPhone. Android urmează în
-         câteva săptămâni — vezi `app-native-note`. -->
-    <div class="download-cta">
-      <a class="web-btn" href="https://app.autoreel.ro/?utm_source=autoreel_ro&utm_medium=landing&utm_campaign=cta_web">
-        Accesează din browser &rarr;
-      </a>
-      <a class="app-store-badge"
-         href="https://apps.apple.com/ro/app/autoreel-marketplace-auto/id6781619559?utm_source=autoreel_ro&utm_medium=landing&utm_campaign=appstore_badge"
-         target="_blank" rel="noopener"
-         aria-label="Descarcă AutoReel de pe App Store">
-        <img src="/app-store-badge.svg" alt="Descărcați de pe App Store" width="192" height="64">
-      </a>
-      <div class="play-badge-wrap">
-        <span class="play-badge disabled" aria-disabled="true" title="Disponibil în curând">
-          <img src="/google-play-badge.svg" alt="Descarcă de pe Google Play (în curând)" width="216" height="64">
-        </span>
-        <span class="soon-note">Aplicația Android &mdash; în câteva săptămâni</span>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="phone">
+          <div class="phone-screen" id="phoneScreen">
+            <img src="/hero/car1.webp" alt="" class="on" width="360" height="753">
+            <img src="/hero/car2.webp" alt="" loading="lazy" width="360" height="753">
+            <img src="/hero/car3.webp" alt="" loading="lazy" width="360" height="753">
+            <img src="/hero/car4.webp" alt="" loading="lazy" width="360" height="753">
+            <img src="/hero/car5.webp" alt="" loading="lazy" width="360" height="753">
+            <img src="/hero/car6.webp" alt="" loading="lazy" width="360" height="753">
+          </div>
+        </div>
+        <div class="leo-wrap">
+          <div class="leo-bubble">Salut, sunt Leo! Glisează și găsește-ți mașina.</div>
+          <img class="leo" src="/hero/leo.png" alt="" width="275" height="293">
+        </div>
       </div>
     </div>
   </section>
@@ -764,7 +657,7 @@
        ============================================================ -->
   <section id="parteneri" class="partners-section">
     <h2 class="partners-title">Primele 10 parcuri care<br>ne-au ajutat să creștem</h2>
-    <p class="partners-sub">Dealerii care au postat anunțuri pe AutoReel în beta, când nimeni nu cunoștea încă platforma. Le mulțumim pentru încredere.</p>
+    <p class="partners-sub">Parcurile auto care au crezut în AutoReel de la început. Primele 10 rămân pe platformă gratuit, pe viață.</p>
 
     <div id="partnersGrid" class="partners-grid">
       <div class="partners-loading">Se încarcă lista…</div>
@@ -773,21 +666,14 @@
     <div class="partners-footer">
       <div class="partners-count" id="partnersCount">— / 10 locuri ocupate</div>
       <div class="partners-cta" id="partnersCTA"></div>
-      <p class="partners-disclaimer">Mulțumesc pentru încredere. Veți avea mereu acces prioritar la features noi.</p>
+      <p class="partners-disclaimer">Vă mulțumim pentru încredere. Partenerii primesc mereu primii funcțiile noi.</p>
     </div>
   </section>
 
+  <!-- Cererea pentru programul partener. Scrie în tabelul `waitlist`
+       (user_type = 'dealer'), ca înainte; numărul de locuri rămase vine din
+       aceeași listă `partners` ca secțiunea de mai sus (fetchPartners). -->
   <div class="section-divider">Înscrie-te</div>
-
-  <section class="form-section">
-    <h2>Vrei alertă la versiunea de Android?</h2>
-    <p class="sub">AutoReel e live pe iPhone (App Store) și pe web (autoreel.ro). Lasă-ne emailul și te anunțăm când iese și app-ul nativ pentru Android (Play Store). Fără spam.</p>
-    <form id="buyerForm" class="signup-form inline">
-      <input type="email" name="email" placeholder="email@example.com" required autocomplete="email">
-      <button type="submit">Anunță-mă</button>
-    </form>
-    <div class="form-status" id="buyerStatus"></div>
-  </section>
 
   <section class="dealer-section">
     <h2>
@@ -799,15 +685,15 @@
         <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
         <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
       </svg>
-      Ești dealer auto?
+      Ai un parc auto?
     </h2>
-    <p class="text-center text-muted" style="margin-bottom:22px; position:relative;">Caut 10 dealeri din România care vor să testeze AutoReel înainte de toți ceilalți. Acces beta gratuit, suport prioritar, influențezi direct ce feature-uri vin următoare.</p>
+    <p class="text-center text-muted" style="margin-bottom:22px; position:relative;">Primele 10 parcuri intră <strong>gratuit, pe viață</strong>.<span id="dealerSlots"></span> Anunțurile tale vin singure de pe site-ul parcului, iar sincronizarea e zilnică: cele noi apar, cele vândute dispar. Primești și logo pe pagina de parteneri și o postare de prezentare.</p>
     <form id="dealerForm" class="signup-form" style="position:relative;">
       <input type="text" name="display_name" placeholder="Nume firmă sau persoană" required>
       <input type="email" name="email" placeholder="Email contact" required autocomplete="email">
       <input type="tel" name="phone" placeholder="Telefon (+40...)" required autocomplete="tel">
       <input type="text" name="city" placeholder="Oraș" required autocomplete="address-level2">
-      <button type="submit">Aplică ca beta tester</button>
+      <button type="submit">Aplică pentru programul partener</button>
     </form>
     <div class="form-status" id="dealerStatus"></div>
   </section>
@@ -838,11 +724,16 @@
 
   <!-- Supabase JS client din CDN. Anon key e meant to be public —
        RLS de pe `waitlist` restrânge ce poate face anon-ul (doar INSERT). -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.min.js"></script>
   <script>
     const SUPABASE_URL = 'https://ngdbnlcrejiqyumdvdnw.supabase.co';
     const SUPABASE_ANON_KEY = 'sb_publishable_puQ5QRSxcFipFQkD8MXTlg_bHzUJUCw';
-    const supa = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    // Antetul x-autoreel-client: 2 (migrarea 0055): fără el, RLS ascunde
+    // anunțurile importate fără kilometraj, iar numărul din hero ar fi mai
+    // mic decât cel din aplicație.
+    const supa = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+      global: { headers: { 'x-autoreel-client': '2' } },
+    });
 
     function showStatus(id, msg, kind) {
       const el = document.getElementById(id);
@@ -871,21 +762,16 @@
 
       if (error) {
         if (error.code === '23505') {
-          showStatus(statusId, 'Ești deja pe listă. Te anunțăm la lansarea app-urilor native.', 'success');
+          showStatus(statusId, 'Avem deja o cerere de la acest email. Te contactăm în cel mai scurt timp.', 'success');
           form.reset();
         } else {
           showStatus(statusId, 'Eroare: ' + (error.message || 'încearcă din nou'), 'error');
         }
         return;
       }
-      showStatus(statusId, '✓ Înscriere reușită. Te anunțăm la lansarea app-urilor native!', 'success');
+      showStatus(statusId, '✓ Cerere trimisă. Te contactăm în cel mai scurt timp!', 'success');
       form.reset();
     }
-
-    document.getElementById('buyerForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      submitWaitlist(e.target, 'buyerStatus', 'buyer');
-    });
 
     document.getElementById('dealerForm').addEventListener('submit', (e) => {
       e.preventDefault();
@@ -946,6 +832,7 @@
       const grid = document.getElementById('partnersGrid');
       const counter = document.getElementById('partnersCount');
       const cta = document.getElementById('partnersCTA');
+      const slots = document.getElementById('dealerSlots');
       try {
         const { data, error } = await supa
           .from('partners')
@@ -958,9 +845,13 @@
         const emptyCount = Math.max(0, PARTNERS_MAX - activeCount);
         let html = partners.map(renderPartnerCard).join('');
         for (let i = 0; i < emptyCount; i++) html += renderEmptySlot();
-        grid.innerHTML = html || `<div class="partners-loading">Lista partenerilor va apărea aici curând.</div>`;
+        grid.innerHTML = html;
         counter.textContent = `${activeCount} / ${PARTNERS_MAX} locuri ocupate`;
         const full = activeCount >= PARTNERS_MAX;
+        const left = PARTNERS_MAX - activeCount;
+        slots.textContent = full
+          ? ' Locurile s-au ocupat, dar lasă-ne datele și revenim cu detalii.'
+          : (left === 1 ? ' Mai este un singur loc.' : ` Mai sunt ${left} locuri.`);
         if (full) {
           cta.innerHTML = `Programul partener e complet pentru moment.`;
         } else {
@@ -978,11 +869,41 @@
 
     fetchPartners();
 
-    // Deep link routing pentru utilizatorii care intră via share link.
-    const path = window.location.pathname;
-    if (/^\/car\/[a-f0-9-]+/.test(path) || /^\/dealer\/[a-f0-9-]+/.test(path)) {
-      document.title = 'Deschide în AutoReel';
-    }
+    // ============== HERO: telefonul se rotește prin cele 6 anunțuri ==============
+    (function () {
+      const imgs = document.querySelectorAll('#phoneScreen img');
+      if (imgs.length < 2) return;
+      let i = 0;
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      setInterval(() => {
+        imgs[i].classList.remove('on');
+        i = (i + 1) % imgs.length;
+        imgs[i].classList.add('on');
+      }, reduce ? 4500 : 2800);
+    })();
+
+    // ============== HERO: cifrele live din eticheta de sus ==============
+    (async function heroStats() {
+      try {
+        const db = supa;
+        const [cars, partners] = await Promise.all([
+          db.from('cars').select('id', { count: 'exact', head: true }).eq('status', 'active'),
+          db.from('partners').select('id', { count: 'exact', head: true }).eq('is_active', true),
+        ]);
+        if (cars.error || cars.count == null) return;
+        const n = cars.count;
+        const r = n % 100;
+        const masini = (n >= 20 && (r === 0 || r >= 20)) ? 'de mașini' : 'mașini';
+        let txt = `${n.toLocaleString('ro-RO')} ${masini} active`;
+        if (!partners.error && partners.count) {
+          txt += ` · ${partners.count} ${partners.count === 1 ? 'parc partener' : 'parcuri partenere'}`;
+        }
+        document.getElementById('heroStats').textContent = txt;
+      } catch (e) {
+        console.error('heroStats:', e);
+      }
+    })();
+
   </script>
 </body>
 </html>
