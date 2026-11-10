@@ -45,6 +45,9 @@
   }
   </script>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap">
   <link rel="stylesheet" href="/styles.css">
 
   <style>
@@ -81,7 +84,7 @@
     .store-badges { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
     .store-badges img { height: 50px; width: auto; display: block; }
     .hero-visual { position: relative; display: flex; justify-content: center; min-height: 560px; }
-    .phone {
+    .hero-visual .phone {
       width: 270px; border-radius: 40px; padding: 10px; align-self: center;
       background: linear-gradient(160deg, #2A2A34, #121218);
       box-shadow: 0 30px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.08), 0 0 90px rgba(255,106,0,0.25);
@@ -110,7 +113,7 @@
       .hero2 .download-cta { align-items: center; }
       .store-badges { justify-content: center; }
       .hero-visual { min-height: 500px; }
-      .phone { width: 240px; }
+      .hero-visual .phone { width: 240px; }
       .leo-wrap { left: calc(50% - 230px); }
       .leo { width: 140px; }
     }
@@ -118,7 +121,7 @@
       .leo-wrap { left: 0; }
       .leo-bubble { max-width: 150px; font-size: 12px; }
       .leo { width: 110px; }
-      .phone { width: 220px; margin-left: 60px; }
+      .hero-visual .phone { width: 220px; margin-left: 60px; }
     }
 
     .features {
@@ -532,6 +535,7 @@
       font-size: 14px;
     }
   </style>
+  <script defer src="/fx3d.js"></script>
   <!-- Cloudflare Web Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "ddfbcdf8ed7e42c188fbd9757f796d23"}'></script><!-- End Cloudflare Web Analytics -->
 </head>
 <body>
@@ -569,6 +573,8 @@
        de înmatriculare pixelate (hero/car1–6.webp). Cifrele din eticheta de
        sus vin live din baza de date (heroStats, mai jos în script). -->
   <section class="hero hero2">
+    <!-- Decor 3D (nov 2026): șoseaua în perspectivă. Stiluri în styles.css, „3D”. -->
+    <div class="hero-road" aria-hidden="true"><i></i></div>
     <div class="hero-grid">
       <div class="hero-text">
         <span class="hero-chip" id="heroStats">Parcuri auto din toată țara</span>
@@ -605,6 +611,8 @@
             <img src="/hero/car5.webp" alt="" loading="lazy" width="360" height="753">
             <img src="/hero/car6.webp" alt="" loading="lazy" width="360" height="753">
           </div>
+          <span class="phone-glare"></span>
+          <span class="orbit"><i></i><i></i></span>
         </div>
         <div class="leo-wrap">
           <div class="leo-bubble">Salut, sunt Leo! Glisează și găsește-ți mașina.</div>
@@ -658,6 +666,16 @@
   <section id="parteneri" class="partners-section">
     <h2 class="partners-title">Primele 10 parcuri care<br>ne-au ajutat să creștem</h2>
     <p class="partners-sub">Parcurile auto care au crezut în AutoReel de la început. Primele 10 rămân pe platformă gratuit, pe viață.</p>
+
+    <!-- Harta 3D (nov 2026), doar decor: aceleași parcuri ca în lista de mai
+         jos, de la vest la est. Punctele hărții și locurile pinilor le scrie
+         scripts/make_ro_map.py (din proiectul principal); pinii îi pune
+         drawMap(), mai jos în script. -->
+    <div class="ro-map" id="roMap" aria-hidden="true">
+      <div class="ro-map-plane">
+        <img src="/hero/ro-map.svg" alt="" width="675" height="483" loading="lazy">
+      </div>
+    </div>
 
     <div id="partnersGrid" class="partners-grid">
       <div class="partners-loading">Se încarcă lista…</div>
@@ -846,6 +864,7 @@
         let html = partners.map(renderPartnerCard).join('');
         for (let i = 0; i < emptyCount; i++) html += renderEmptySlot();
         grid.innerHTML = html;
+        mapPartners(partners);
         counter.textContent = `${activeCount} / ${PARTNERS_MAX} locuri ocupate`;
         const full = activeCount >= PARTNERS_MAX;
         const left = PARTNERS_MAX - activeCount;
@@ -867,6 +886,122 @@
       }
     }
 
+    // ============== Harta 3D cu parcurile partenere ==============
+    // Fără diacritice, litere mici. La fel ca `norm` din scripts/make_ro_map.py.
+    function norm(s) {
+      return String(s || '').normalize('NFD').replace(/\p{M}/gu, '')
+        .toLowerCase().replace(/-/g, ' ').replace(/\s+/g, ' ').trim();
+    }
+
+    // Locul unui parc pe hartă: orașul lui; dacă nu e în tabel, câmpul „județ”
+    // citit ca oraș (la unii parteneri acolo e trecut orașul); apoi reședința
+    // județului. Negăsit → parcul nu primește pin (apare doar în listă).
+    function placeOf(p, places) {
+      const county = norm(p.county);
+      const byCity = places.p[norm(p.city)];
+      if (byCity) return byCity.find((c) => c[2] === county) || byCity[0];
+      const byCounty = places.p[county];
+      if (byCounty) return byCounty[0];
+      return places.c[county] || null;
+    }
+
+    let mapList = null;
+    function mapPartners(partners) {
+      mapList = partners;
+      const box = document.getElementById('roMap');
+      if (!box || !partners.length) return;
+      // Tabelul de orașe se cere abia când harta se apropie de ecran.
+      if (!('IntersectionObserver' in window)) { drawMap(box); return; }
+      const io = new IntersectionObserver((entries) => {
+        if (!entries.some((en) => en.isIntersecting)) return;
+        io.disconnect();
+        drawMap(box);
+      }, { rootMargin: '600px 0px' });
+      io.observe(box);
+    }
+
+    async function drawMap(box) {
+      let places;
+      try {
+        const res = await fetch('/hero/ro-places.json');
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        places = await res.json();
+      } catch (e) {
+        console.error('Harta: nu am putut încărca locurile:', e);
+        return;
+      }
+      // Un pin pe loc: două parcuri din același oraș împart pinul.
+      const pins = new Map();
+      for (const p of mapList) {
+        const at = placeOf(p, places);
+        if (!at) { console.warn('Harta: nu găsesc locul pentru', p.name, p.city, p.county); continue; }
+        const key = at[0] + ',' + at[1];
+        if (!pins.has(key)) pins.set(key, { x: at[0], y: at[1], city: p.city, n: 0 });
+        pins.get(key).n++;
+      }
+      const plane = box.querySelector('.ro-map-plane');
+      const list = [...pins.values()].sort((a, b) => a.x - b.x);   // vest → est
+      const els = list.map((pin, i) => {
+        const el = document.createElement('span');
+        el.className = 'ro-pin';
+        el.style.left = (pin.x / places.w * 100).toFixed(2) + '%';
+        el.style.top = (pin.y / places.h * 100).toFixed(2) + '%';
+        el.style.setProperty('--i', i);
+        const beam = document.createElement('b');
+        const label = document.createElement('em');
+        label.textContent = pin.n > 1 ? `${pin.city} · ${pin.n}` : pin.city;
+        el.append(beam, label);
+        plane.appendChild(el);
+        return el;
+      });
+      // Etichetele nu au voie să se suprapună. Fiecare poate sta deasupra
+      // pinului, la dreapta, la stânga, sau în aceleași trei locuri mai sus
+      // (`u`). Se caută o așezare bună pentru toate odată (nu pin cu pin: pe
+      // telefon, trei orașe apropiate nu încap decât dacă primul cedează loc).
+      // Dacă nu există niciuna, toate rămân deasupra pinului.
+      const SPOTS = ['', 'r', 'l', 'u', 'u r', 'u l'];
+      let rects = [];
+      let budget = 0;                          // măsurători, ca să nu blocheze pagina
+      const clash = (r) => rects.some((q) => r.left < q.right + 3 && r.right > q.left - 3 && r.top < q.bottom + 1 && r.bottom > q.top - 1);
+      const settle = (k) => {
+        if (k === els.length) return true;
+        for (const cls of SPOTS) {
+          if (budget-- <= 0) return false;
+          els[k].className = ('ro-pin ' + cls).trim();
+          const r = els[k].querySelector('em').getBoundingClientRect();
+          if (clash(r)) continue;
+          rects.push(r);
+          if (settle(k + 1)) return true;
+          rects.pop();
+        }
+        return false;
+      };
+      const layout = () => {
+        rects = [];
+        budget = 3000;
+        if (!settle(0)) els.forEach((el) => { el.className = 'ro-pin'; });
+      };
+      layout();
+      // La altă lățime (telefon rotit, fereastră trasă) se așază din nou.
+      let lastW = window.innerWidth, timer = 0;
+      window.addEventListener('resize', () => {
+        if (window.innerWidth === lastW) return;   // pe telefon, bara de adrese schimbă doar înălțimea
+        lastW = window.innerWidth;
+        clearTimeout(timer);
+        timer = setTimeout(layout, 200);
+      });
+      // Pinii se ridică pe rând când harta intră în ecran (fără mișcare redusă).
+      const calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (calm || !('IntersectionObserver' in window)) return;
+      box.classList.add('pre');
+      const io = new IntersectionObserver((entries) => {
+        if (!entries.some((en) => en.isIntersecting)) return;
+        io.disconnect();
+        box.classList.remove('pre');
+      }, { threshold: 0.35 });
+      io.observe(box);
+    }
+
     fetchPartners();
 
     // ============== HERO: telefonul se rotește prin cele 6 anunțuri ==============
@@ -875,9 +1010,20 @@
       if (imgs.length < 2) return;
       let i = 0;
       const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      // Swipe (nov 2026): anunțul curent urcă și iese pe sus (`out`), următorul
+      // intră de jos (`on`); stilurile sunt în styles.css, „Swipe”. Cu mișcarea
+      // redusă rămâne estomparea veche. Pozele care așteaptă stau sub ecranul
+      // telefonului, tăiate de `overflow`, deci `loading="lazy"` nu le-ar mai
+      // încărca: după încărcarea paginii le cerem direct.
+      window.addEventListener('load', () => imgs.forEach((im) => { im.loading = 'eager'; }));
       setInterval(() => {
-        imgs[i].classList.remove('on');
-        i = (i + 1) % imgs.length;
+        const next = (i + 1) % imgs.length;
+        if (!imgs[next].complete || !imgs[next].naturalWidth) return;  // încă se încarcă
+        const prev = imgs[i];
+        prev.classList.remove('on');
+        prev.classList.add('out');
+        setTimeout(() => prev.classList.remove('out'), 700);
+        i = next;
         imgs[i].classList.add('on');
       }, reduce ? 4500 : 2800);
     })();
@@ -898,7 +1044,10 @@
         if (!partners.error && partners.count) {
           txt += ` · ${partners.count} ${partners.count === 1 ? 'parc partener' : 'parcuri partenere'}`;
         }
-        document.getElementById('heroStats').textContent = txt;
+        const chip = document.getElementById('heroStats');
+        // Cifrele rulează ca un kilometraj dacă fx3d.js e încărcat; altfel text simplu.
+        if (window.autoreelOdometer) window.autoreelOdometer(chip, txt);
+        else chip.textContent = txt;
       } catch (e) {
         console.error('heroStats:', e);
       }
